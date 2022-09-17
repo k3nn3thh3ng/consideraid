@@ -3,7 +3,7 @@ import express from "express";
 import bodyparser from "body-parser";
 import path from "path";
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.json());
