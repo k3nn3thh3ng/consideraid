@@ -9,6 +9,10 @@ const config = {
 		description,
 		port: 3000
 	},
+	api: {
+		development_front_end:
+			NODE_ENV === "development" ? "http://localhost:3001" : ""
+	},
 	integration: {
 		mysql: {
 			database: process.env.MYSQL_DATABASE || "consider_aid",

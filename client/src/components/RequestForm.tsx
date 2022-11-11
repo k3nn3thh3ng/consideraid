@@ -10,6 +10,7 @@ import { Dropdown } from "./form/Dropdown";
 import { AreaList } from "../constants/AreaList";
 import { ItemsCheckboxGroup } from "./form/ItemsCheckboxGroup";
 import { ItemsList } from "../constants/ItemsList";
+import { backendApi } from "../api/backend";
 
 type FormValues = {
 	items: {
@@ -116,9 +117,14 @@ const RequestForm = (): JSX.Element => {
 		}
 	});
 
-	const onSubmit: SubmitHandler<FormValues> = (data) => {
+	const onSubmit: SubmitHandler<FormValues> = async (data) => {
 		console.log(JSON.stringify(data));
-		alert(JSON.stringify(data));
+		try {
+			const response = await backendApi.get("/aid");
+			console.log(response);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	return (
@@ -185,13 +191,17 @@ const generateFormInputs = (
 							<Controller
 								name={input.id}
 								control={control}
-								render={({ field }) => (
+								render={({
+									field: { onChange, onBlur, value }
+								}) => (
 									<>
 										<TextField
 											id="outlined-basic"
 											label={input.label}
 											variant="outlined"
-											{...field}
+											onChange={onChange}
+											onBlur={onBlur}
+											value={value}
 										/>
 										{input.helperText && (
 											<FormHelperText>

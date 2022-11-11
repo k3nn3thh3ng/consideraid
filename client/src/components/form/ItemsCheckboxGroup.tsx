@@ -56,12 +56,12 @@ export const ItemsCheckboxGroup = ({
 					key={`${id}.${option.optionValue}`}
 					name={`${id}.${option.optionValue}`}
 					control={control}
-					render={({ field }) => (
+					render={({ field: { onChange, value, name } }) => (
 						<Checkbox
-							{...field}
-							name={field.name}
+							name={name}
 							label={option.optionLabel}
-							value={field.value}
+							onChange={onChange}
+							value={value}
 						/>
 					)}
 				/>
