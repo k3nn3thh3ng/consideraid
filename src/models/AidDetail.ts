@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { modelCommonOptions } from "./common.js";
+import { modelCommonOptions } from "./common";
 
 export default class AidDetail extends Model {
 	static initModel(sequelize: Sequelize) {

@@ -2,8 +2,9 @@ import { Sequelize } from "sequelize";
 
 import config from "../../config";
 import logger from "../utils/logger";
-import Aid from "./Aid.js";
-import init_associations from "./associations.js";
+import Aid from "./Aid";
+import AidDetail from "./AidDetail";
+import init_associations from "./associations";
 
 interface ContextType {
 	config?: any;
@@ -48,7 +49,7 @@ export const init = async () => {
 
 	// define models
 	if (context.sequelize) {
-		[Aid].forEach((model) => model.initModel(context.sequelize));
+		[Aid, AidDetail].forEach((model) => model.initModel(context.sequelize));
 	}
 
 	// define model relations

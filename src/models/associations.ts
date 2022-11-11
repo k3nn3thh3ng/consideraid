@@ -2,10 +2,9 @@ import Aid from "./Aid";
 import AidDetail from "./AidDetail";
 
 export default () => {
-	AidDetail.belongsTo(Aid);
-	Aid.hasOne(AidDetail, {
+	AidDetail.hasOne(Aid, {
 		foreignKey: {
-			name: "aid_id",
+			name: "aid_detail_id",
 			allowNull: false
 		}
 	});
