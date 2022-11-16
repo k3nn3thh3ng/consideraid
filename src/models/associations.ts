@@ -1,10 +1,16 @@
+import AidRequests from "./AidRequests";
 import Aid from "./Aid";
-import AidDetail from "./AidDetail";
 
 export default () => {
-	AidDetail.hasOne(Aid, {
+	Aid.hasOne(AidRequests, {
 		foreignKey: {
-			name: "aid_detail_id",
+			name: "aid_id",
+			allowNull: false
+		}
+	});
+	AidRequests.belongsTo(Aid, {
+		foreignKey: {
+			name: "aid_id",
 			allowNull: false
 		}
 	});

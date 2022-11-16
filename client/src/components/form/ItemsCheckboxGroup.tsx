@@ -10,8 +10,8 @@ import { Control, Controller } from "react-hook-form";
 // This component is not generic and pertains to items
 type FormValues = {
 	items: Items;
-	detailsOfAid: string;
-	addressArea: string;
+	description: string;
+	area: string;
 	name: string;
 	contactNumber: string;
 	email: string;

@@ -26,14 +26,18 @@ type FormValues = {
 		repaintingOfHouse: boolean;
 		cleaningOfHouse: boolean;
 	};
-	detailsOfAid: string;
-	addressArea: string;
+	description: string;
+	area: string;
 	name: string;
 	contactNumber: string;
 	email: string;
 };
 
-type Items = {
+interface RequestFormProps {
+	values?: FormValues;
+}
+
+export type Items = {
 	foodRations: boolean;
 	halalFoodRations: boolean;
 	formulaMilk: boolean;
@@ -73,7 +77,7 @@ const arrayOfInputs: formInputs[] = [
 	},
 	{
 		type: "TextField",
-		id: "detailsOfAid",
+		id: "description",
 		label: "Please provide details of your requested aid",
 		helperText:
 			"Please describe your current situation and request of aid (i.e. number of children, elderly, loss of job, special needs, staying in rental flat, etc.)"
@@ -81,7 +85,7 @@ const arrayOfInputs: formInputs[] = [
 	{ type: "TextField", id: "name", label: "Name" },
 	{
 		type: "Dropdown",
-		id: "addressArea",
+		id: "area",
 		label: "Which area are you staying in?",
 		options: AreaList
 	},
@@ -93,9 +97,9 @@ const arrayOfInputs: formInputs[] = [
 	{ type: "TextField", id: "email", label: "What is your email address?" }
 ];
 
-const RequestForm = (): JSX.Element => {
+const RequestForm = ({ values }: RequestFormProps): JSX.Element => {
 	const { control, handleSubmit } = useForm<FormValues>({
-		defaultValues: {
+		defaultValues: values || {
 			items: {
 				foodRations: false,
 				halalFoodRations: false,
@@ -109,8 +113,8 @@ const RequestForm = (): JSX.Element => {
 				repaintingOfHouse: false,
 				cleaningOfHouse: false
 			},
-			detailsOfAid: "",
-			addressArea: "",
+			description: "",
+			area: "",
 			name: "",
 			contactNumber: "",
 			email: ""
@@ -120,7 +124,7 @@ const RequestForm = (): JSX.Element => {
 	const onSubmit: SubmitHandler<FormValues> = async (data) => {
 		console.log(JSON.stringify(data));
 		try {
-			const response = await backendApi.get("/aid");
+			const response = await backendApi.post("/aid/create", data);
 			console.log(response);
 		} catch (e) {
 			console.log(e);
