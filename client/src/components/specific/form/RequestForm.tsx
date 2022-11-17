@@ -5,12 +5,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useForm, Controller, SubmitHandler, Control } from "react-hook-form";
-import { BasicDateTimePicker } from "./form/BasicDateTimePicker";
-import { Dropdown } from "./form/Dropdown";
-import { AreaList } from "../constants/AreaList";
-import { ItemsCheckboxGroup } from "./form/ItemsCheckboxGroup";
-import { ItemsList } from "../constants/ItemsList";
-import { backendApi } from "../api/backend";
+import { BasicDateTimePicker } from "../../generic/form/BasicDateTimePicker";
+import { Dropdown } from "../../generic/form/Dropdown";
+import { AreaList } from "../../../constants/AreaList";
+import { ItemsCheckboxGroup } from "../../generic/form/ItemsCheckboxGroup";
+import { ItemsList } from "../../../constants/ItemsList";
+import { backendApi } from "../../../api/backend";
 
 type FormValues = {
 	items: {

@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "../utils/logger";
 import _ from "lodash";
-import { aidRequestsService } from "../services/database/AidRequestsService";
+import { aidService } from "../services/database/AidService";
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.use(express.json());
 
 router.get("/aid", async (req, res) => {
 	try {
-		const allAidsModel = await aidRequestsService.findAllAids();
+		const allAidsModel = await aidService.findAllAids();
 		res.status(200).json({
 			status: 200,
 			message: "Successfully queried",
@@ -24,14 +24,29 @@ router.get("/aid", async (req, res) => {
 	}
 });
 router.get("/aid/:aid_id", async (req, res) => {
-	res.send("Aid Get Route");
+	logger.info(req.params.aid_id);
+	try {
+		if (!req.params.aid_id) throw new Error("Invalid aid id");
+		const aidModel = await aidService.findAid(req.params.aid_id);
+		res.status(200).json({
+			status: 200,
+			message: "Successful query",
+			payload: aidModel
+		});
+	} catch (e) {
+		logger.warn("Request Error /aid/create:", e);
+		res.status(400).json({
+			status: 400,
+			message: e.message
+		});
+	}
 });
 router.post("/aid/create", async (req, res) => {
 	try {
 		if (_.isEmpty(req.body)) throw new Error("Invalid input data");
 		// Need to validate form for further check, not just check if null
 
-		await aidRequestsService.createAid(req.body);
+		await aidService.createAid(req.body);
 		res.status(200).json({
 			status: 200,
 			message: "Successfully created"

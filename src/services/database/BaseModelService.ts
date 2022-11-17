@@ -43,8 +43,8 @@ export class BaseModelService {
 		return model;
 	}
 
-	async delete(id) {
-		const model = await this.findByPk(id);
+	async delete(id, options?) {
+		const model = await this.findByPk(id, options);
 		if (model) {
 			await model.destroy();
 			logger.info(`Deleted ${this._modelClass.name} [${id}]`);
@@ -52,8 +52,8 @@ export class BaseModelService {
 		return model;
 	}
 
-	async findByPk(id) {
-		const model = await this._modelClass.findByPk(id);
+	async findByPk(id, options?) {
+		const model = await this._modelClass.findByPk(id, options);
 		if (model) {
 			logger.debug(`Found ${this._modelClass.name} [${model.id}]`);
 		} else {

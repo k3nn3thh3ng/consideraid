@@ -10,13 +10,14 @@ import Paper from "@mui/material/Paper";
 import TableHead from "@mui/material/TableHead";
 import { TablePaginationActions } from "./TablePaginationActions";
 import { useQuery } from "@tanstack/react-query";
-import { getAllAids } from "../../api/backend";
-import { Spinner } from "../loading/spinner";
+import { getAllAids } from "../../../api/backend";
+import { Spinner } from "../../generic/loading/spinner";
 import { SpinnerContainer } from "./style";
-import { ageTimer } from "../../utils/ageTimer";
+import { ageTimer } from "../../../utils/ageTimer";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import { AidStatusPill } from "../pills/AidStatus";
 
 interface Column {
 	id: string;
@@ -29,6 +30,11 @@ interface Column {
 const columns: readonly Column[] = [
 	{ id: "area", label: "Location", minWidth: 100 },
 	{ id: "description", label: "Description", minWidth: 350 },
+	{
+		id: "status",
+		label: "",
+		minWidth: 100
+	},
 	{
 		id: "submitted",
 		label: "Submitted",
@@ -113,13 +119,18 @@ export const PaginationTable = (): React.ReactElement => {
 						).map((row) => (
 							<TableRow key={row.id}>
 								<TableCell component="th" scope="row">
-									{row.aid.area}
+									{row.area}
 								</TableCell>
 								<TableCell style={{ width: 350 }} align="left">
-									{row.aid.description}
+									{row.description}
+								</TableCell>
+								<TableCell style={{ width: 100 }} align="left">
+									<AidStatusPill
+										statusNumber={row.aid_status.status}
+									/>
 								</TableCell>
 								<TableCell style={{ width: 140 }} align="left">
-									{ageTimer(row.aid.created_at, currentTs)}
+									{ageTimer(row.created_at, currentTs)}
 								</TableCell>
 								<TableCell style={{ width: 100 }} align="left">
 									<Link to={`/${row.id}/edit`}>
@@ -143,7 +154,7 @@ export const PaginationTable = (): React.ReactElement => {
 									25,
 									{ label: "All", value: -1 }
 								]}
-								colSpan={3}
+								colSpan={5}
 								count={data.payload.length}
 								rowsPerPage={rowsPerPage}
 								page={page}

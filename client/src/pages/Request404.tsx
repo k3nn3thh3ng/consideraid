@@ -1,4 +1,4 @@
-import { Appbar } from "../components/appbar/Appbar";
+import { Appbar } from "../components/generic/appbar/Appbar";
 
 const Request404 = (): JSX.Element => {
 	return (

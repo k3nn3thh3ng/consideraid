@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { spacing } from "../../design/index";
+import { spacing } from "../../../design/index";
 
 export const SpinnerContainer = styled.div`
 	display: flex;
